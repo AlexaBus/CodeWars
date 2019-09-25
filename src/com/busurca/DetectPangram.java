@@ -1,33 +1,35 @@
 package com.busurca;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 public class DetectPangram {
 
-    boolean check(String sentence){
+    boolean check(String sentence) {
 
-        int[] alphabet = new int[26];
+        //char array containing lower letters
+        char[] alphabet = {97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122};
 
-        for (int i = 0; i<alphabet.length; i++) {
-            int j = i + 97;
-            alphabet[i] = j;
+        //for each alphabet letter check if it exists in the given string
+        for (int i = 0; i < alphabet.length; i++) {
+            //if it doesn't exist return false
+            if (sentence.toLowerCase().indexOf(alphabet[i]) == -1) {
+                return false;
+            }
         }
 
-        System.out.println(Arrays.toString(alphabet));
+        return true;
+    }
 
-        int[] lettersInSentence = new int[26];
+    //these 2 are other solutions that i liked
+    public boolean secondCheck(String sentence) {
+        for (char c = 'a'; c <= 'z'; c++)
+            if (!sentence.toLowerCase().contains("" + c))
+                return false;
+        return true;
+    }
 
-        for(int i = 0; i < lettersInSentence.length; i++) {
-                if (Character.isAlphabetic(sentence.toLowerCase().toCharArray()[i])){
-                    lettersInSentence[i]=sentence.toLowerCase().toCharArray()[i];
-                }
-        }
+    public boolean thirdCheck(String sentence) {
 
-        System.out.println(Arrays.toString(lettersInSentence));
+        return sentence.chars().filter(Character::isAlphabetic).map(Character::toLowerCase).distinct().count() == 26;
 
-
-        return Arrays.equals(alphabet,lettersInSentence);
     }
 
 }
