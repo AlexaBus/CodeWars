@@ -1,5 +1,7 @@
 package com.busurca;
 
+import java.util.stream.IntStream;
+
 class PlayingWithDigits {
 
     static long digPow(int n, int p) {
@@ -24,4 +26,18 @@ class PlayingWithDigits {
         return -1;
     }
 
+    //i like this one because it shows the use of Streams
+    // how to get an int array before looping,
+    // instead of looping through a char array and then change it to an int value
+    public static long digPow2(int n, int p) {
+        int[] digits = String.valueOf(n).chars().map(Character::getNumericValue).toArray();
+        int sum = IntStream.range(0, digits.length).map(i -> (int) Math.pow(digits[i], i + p)).sum();
+        return sum % n == 0 ? sum / n : -1;
+
+    }
+
 }
+
+
+
+
